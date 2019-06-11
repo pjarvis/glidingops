@@ -45,7 +45,7 @@ include 'helpers.php';
 <?php
 if(isset($_SESSION['security']))
 {
- if (!($_SESSION['security'] & 32))
+ if (!($_SESSION['security'] & 16))
  {
   die("Secruity level too low for this page");
  }
@@ -58,7 +58,7 @@ else
 ?>
 <div id='head'>
 <table class='t1'>
-<tr><td class='tdhead1'><p class='headp1'>wellington</p></td><td class='head3' rowspan="2"><?php echo $_SESSION['dispname'];?> Signed in as: <?php echo $_SESSION['who'];?><br><a href='SignOut.php' class='wt'>Sign Out</a><br><a href='PasswordChange' class='wt'>Change Password</a></td><td class='head4'></td></tr>
+<tr><td class='tdhead1'><p class='headp1'>FaultLine Flyers</p></td><td class='head3' rowspan="2"><?php echo $_SESSION['dispname'];?> Signed in as: <?php echo $_SESSION['who'];?><br><a href='SignOut.php' class='wt'>Sign Out</a><br><a href='PasswordChange' class='wt'>Change Password</a></td><td class='head4'></td></tr>
 <tr><td class='tdhead1'><p class='headp2'>gliding club operations</p></td></tr>
 </table>
 </div>

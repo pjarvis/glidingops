@@ -188,12 +188,12 @@ $message .= "<th>LAUNCH TYPE</th><th>TYPE</th></tr>";
         if ($done==1)
         {
            $message .= "<tr><td colspan='7' class='td1'></td></tr>
-<tr><td colspan='7' class='td2'>To check out more go to <a href='glidingops.com'>glidingops.com</a></td></tr>
+<tr><td colspan='7' class='td2'>To check out more go to <a href='glidingops.faultlineflyers.com'>glidingops.faultlineflyers.com</a></td></tr>
 </table>
 </body>
 </html>";
-	   $headers = 'From: operations@glidingops.com' . "\r\n" .
-                 'Reply-To: wgcoperations@gmail.com' . "\r\n" .
+	   $headers = 'From: glidingops@faultlineflyers.com' . "\r\n" .
+                 'Reply-To: glidingops@faultlineflyers.com' . "\r\n" .
                  'Content-type: text/html; charset=iso-8859-1' . "\r\n" .
                   'X-Mailer: PHP/' . phpversion();
            mail($row[1], "Your flight summary", $message, $headers);

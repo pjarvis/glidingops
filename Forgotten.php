@@ -52,11 +52,11 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
     $pw2 = md5($pw);
     $q="UPDATE users SET password = '".$pw2."', force_pw_reset = 1 where id = ".$row['id'];
     $r = mysqli_query($con,$q);
-    $headers = 'From: operations@glidingops.com' . "\r\n" .
-     'Reply-To: wgcoperations@gmail.com' . "\r\n" .
+    $headers = 'From: glidingops@faultlineflyers.com' . "\r\n" .
+     'Reply-To: glidingops@faultlineflyers.com' . "\r\n" .
      'X-Mailer: PHP/' . phpversion();
     $message = "Login details are Username " . $email . " Temporary Password " . $pw;
-    mail($email, "Wellington Gliding Club Ops", $message, $headers);
+    mail($email, "FaultLine Flyers Gliding Club Ops", $message, $headers);
     header('Location: Login.php');
   }
   else

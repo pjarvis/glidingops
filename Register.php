@@ -74,11 +74,11 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
      $q="INSERT INTO users(name,org,usercode,password,securitylevel,force_pw_reset,member) VALUE ('" .$dispname. "','" .$org. "','" .$email. "','" .$pw2. "',1,1," . $memid. ")";
     }
     $r = mysqli_query($con,$q);
-    $headers = 'From: operations@glidingops.com' . "\r\n" .
-     'Reply-To: wgcoperations@gmail.com' . "\r\n" .
+    $headers = 'From: glidingops@faultlineflyers.com' . "\r\n" .
+     'Reply-To: glidingops@faultlineflyers.com' . "\r\n" .
      'X-Mailer: PHP/' . phpversion();
     $message = "Login details are Username " . $email . " Temporary Password " . $pw;
-    mail($email, "Welcome to Wellington Gliding Club Ops", $message, $headers);
+    mail($email, "Welcome to FaultLine Flyers GlidingOps", $message, $headers);
     header('Location: Login.php');
    }
   }

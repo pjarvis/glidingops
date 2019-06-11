@@ -17,7 +17,7 @@ $DB = new GlidingDB($con_params);
 $dt = new DateTime();
 
 //Find out who is flying today
-$myGlide = new Gliding('glidingops.com');
+$myGlide = new Gliding('glidingops.faultlineflyers.com');
 $flyingToday = $myGlide->getFlyingToday(1);
 
 //Build a list of gliders

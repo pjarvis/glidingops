@@ -171,7 +171,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <div id="centrearea">
 <div id="titlearea">
-<h1>Wellington Gliding Club Groups</h1>
+<h1>FaultLine Flyers Groups</h1>
 </div>
 <div id="nav_bar">
 <ul>
