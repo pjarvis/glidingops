@@ -27,7 +27,7 @@ a:hover {color: #0000FF;}
 <body>
 <div id='container'>
 <div id='heading'>
-<img src='HomeLogo.png'>
+<img src='flf-logo.jpg'>
 </div>
 <div id='entry'>
 <div id='form'>
