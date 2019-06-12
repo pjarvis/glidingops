@@ -50,17 +50,6 @@ a:hover {color: #0000FF;}
 <img src="flf-field1.jpg"></img>
 </div>
 </div>
-<div id='main2'>
-<h1>Features</h1>
-<ul>
-<li>Flight Reports</li>
-<li>Enables electronic flight recording (with data entry possible on mobile devices)</li>
-<li>CFI, CTP, Treasurer and Engineering Reports</li>
-<li>Individual flight summaries emailed to pilots at the end of each flying day</li>
-<li>Integrated SPOT and other tracking</li>
-<li>Enables display of flight tracking</li>
-</ul>
-</div>
 </div>
 <footer id='foot'>
 Copyright &#169; glidingops.com 2014
