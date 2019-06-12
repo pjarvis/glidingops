@@ -51,11 +51,18 @@ a:hover {color: #0000FF;}
 </div>
 </div>
 <div id='main2'>
+<h1>FLF Members, login here to manage your flights</h1>
+<h1>About Us</h1>
+<ul>
+<li>We are the Fault Line Flyers - a glider club with members from the Central Texas (Austin) area.   Our goal is to promote, educate and encourage participation in the sport of soaring.  We are a not-for-profit corporation and a local chapter of the Soaring Society of America. </li>
+<li>To join FLF, an applicant must purchase a (non-refundable) membership in the club and become a member of the SSA. All members are asked to pitch in to run the club and minimize operating costs.</li>
+<li>The club operates every weekend from a club owned airport with a 4800 foot grass runway in Briggs, Texas. The club provides flight instructions to its club members and has programs to obtain a Private Pilot Glider license for the beginner, solo pilot, or those who wish to add a Glider rating to their Airplane license.</li>
+<li>Aero tow, and auto tow operations are available, all of which are conducted with an emphasis on safety. Fault Line Flyers has an excellent safety record, thanks in large part to the great depth of experience among its members and instructors.</li>
 </ul>
 </div>
 </div>
 <footer id='foot'>
-Copyright &#169; FaultLine Flyers and glidingops 2019
+Copyright &#169; Fault Line Flyers and glidingops 2019
 </footer>
 </body>
 </html>
