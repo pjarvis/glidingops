@@ -4,9 +4,9 @@
 include 'timehelpers.php';
 if(isset($_SESSION['security']))
 {
- if (!($_SESSION['security'] & 1))
+ if (!($_SESSION['security'] >= 1))
  {
-  die("Secruity level too low for this page");
+  die("Security level too low for this page");
  }
 }
 else
@@ -153,17 +153,17 @@ if ($_SESSION['security'] >= 1)
 if ($_SESSION['security'] >= 1)
 {
   echo "<td><h2 class='u'>REPORTS</h2>";
-  if (($_SESSION['security'] & 8))
+  if (($_SESSION['security'] & 32))
      echo "<p class='u'><a href='Treasurer.php'>Treasurer Report</a></p>";
   if (($_SESSION['security'] & 1))
      echo "<p class='u'><a href='/app/allFlightsReport'>All Flights Report</a></p>";
-  if (($_SESSION['security'] & 24))
+  if (($_SESSION['security'] & 32))
      echo "<p class='u'><a href='/app/reports/membersRolesStatsReport'>Members roles Report</a></p>";
-  if (($_SESSION['security'] & 24))
+  if (($_SESSION['security'] & 32))
      echo "<p class='u'><a href='Instructors.php'>Instructors Report</a></p>";
-  if (($_SESSION['security'] & 24))
+  if (($_SESSION['security'] & 32))
      echo "<p class='u'><a href='MedicalBfr.php'>Medical/BFR Report</a></p>";
-  if (($_SESSION['security'] & 24))
+  if (($_SESSION['security'] & 8))
      echo "<p class='u'><a href='Towy.php'>Tow Pilots Report</a></p>";
   if (($_SESSION['security'] & 32))
      echo "<p class='u'><a href='Engineer.php'>Engineer Report</a></p>";
@@ -193,13 +193,13 @@ if (($_SESSION['security'] & 120))
      echo "<p class='u'><a href='DutyTypes'>Duty Types</a></p>";
   if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='flights-list.php'>Flights Raw</a></p>";
-  if (($_SESSION['security'] & 72))
+  if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='IncentiveSchemes'>Incentive Schemes</a></p>";
   if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='membership_class-list.php'>Membership Classes</a></p>";
   if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='membership_status-list.php'>Membership Statuses</a></p>";
-  if (($_SESSION['security'] & 72))
+  if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='OtherCharges'>Other Charges</a></p>";
   if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='Roles'>Roles</a></p>";
@@ -207,9 +207,9 @@ if (($_SESSION['security'] & 120))
      echo "<p class='u'><a href='AssignRoles'>Role Assigment</a></p>";
   if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='spots-list.php'>Spots</a></p>";
-  if (($_SESSION['security'] & 72))
+  if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='SubsToSchemes'>Subs to Incentives</a></p>";
-  if (($_SESSION['security'] & 72))
+  if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='TowCharges'>Tow Charging</a></p>";
   if (($_SESSION['security'] & 64))
      echo "<p class='u'><a href='maintenance/duplicates_index.php'>Manage duplicate memberships</a></p>";

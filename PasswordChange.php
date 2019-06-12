@@ -2,7 +2,7 @@
 <?php
 if(isset($_SESSION['security']))
 {
- if (!($_SESSION['security'] & 1))
+ if (!($_SESSION['security'] >= 1))
  {
   die("Secruity level too low for this page");
  }
