@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php $org=0; if(isset($_SESSION['org'])) $org=$_SESSION['org'];
+<?php $org=6; if(isset($_SESSION['org'])) $org=$_SESSION['org'];
 if(isset($_SESSION['security'])){
  if ($_SESSION['security'] < 1){die("Secruity level too low for this page");}
 }else{

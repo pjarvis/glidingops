@@ -73,7 +73,7 @@ if (mysqli_connect_errno())
    echo "<p>Unable to connect to database</p>";
    exit();
 }
-$org=0;
+$org=6;
 if (isset($_SESSION['org']))
  $org = $_SESSION['org'];
 $classignore1 = getShortTermClass($con,$org);

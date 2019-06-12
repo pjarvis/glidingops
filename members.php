@@ -1,7 +1,7 @@
 <?php session_start(); ?>
 <?php
 include 'timehelpers.php';
-$org=0;
+$org=6;
 if(isset($_SESSION['org'])) $org=$_SESSION['org'];
 if(isset($_SESSION['security'])){
  if (!($_SESSION['security'] & 6)){die("Secruity level too low for this page");}

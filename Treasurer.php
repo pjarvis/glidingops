@@ -1,5 +1,5 @@
 <?php session_start(); ?>
-<?php $org=0; if(isset($_SESSION['org'])) $org=$_SESSION['org'];?>
+<?php $org=6; if(isset($_SESSION['org'])) $org=$_SESSION['org'];?>
 <!DOCTYPE HTML>
 <html>
 <meta name="viewport" content="width=device-width">

@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php
-$org=0;
+$org=6;
 if(isset($_SESSION['security']))
 {
  if (!($_SESSION['security'] & 4))

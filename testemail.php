@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php
-$org=0;
+$org=6;
 $updtext='';
 if(isset($_SESSION['org'])) $org=$_SESSION['org'];
 if(isset($_SESSION['security'])){

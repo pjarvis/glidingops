@@ -2,7 +2,7 @@
 <head>
 <meta http-equiv="refresh" content="3600">
 <?php
-$org=0;
+$org=6;
 if (isset($_GET['org']))
  $org=$_GET['org'];
 else

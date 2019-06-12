@@ -2,7 +2,7 @@
 <?php
 include 'helpers.php';
 include 'timehelpers.php';
-$org=0;
+$org=6;
 $con_params = require('./config/database.php'); $con_params = $con_params['gliding'];
 $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params['password'],$con_params['dbname']);
 if (mysqli_connect_errno())

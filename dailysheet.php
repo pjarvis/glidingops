@@ -40,7 +40,7 @@ if (window.XMLHttpRequest) {
 include 'timehelpers.php';
 include 'helpers.php';
 $DEBUG=0;
-$org=0;
+$org=6;
 $location= '';
 $specific_date='';
 if ($_SERVER["REQUEST_METHOD"] == "GET")

@@ -28,7 +28,7 @@ function printit(){window.print();}
 include 'helpers.php';
 include 'timehelpers.php';
 $DEBUG=0;
-$org=0;
+$org=6;
 $diagtext="";
 $dateStr = '';
 $dateStr2='';

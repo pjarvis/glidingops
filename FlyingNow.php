@@ -1,6 +1,6 @@
 <?php session_start(); ?>
 <?php
-$org=0;
+$org=6;
 if ($_SERVER["REQUEST_METHOD"] == "GET")
 {
  if (isset($_GET['org']) )
