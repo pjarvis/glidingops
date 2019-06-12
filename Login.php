@@ -50,9 +50,12 @@ a:hover {color: #0000FF;}
 <img src="flf-field1.jpg"></img>
 </div>
 </div>
+<div id='main2'>
+</ul>
+</div>
 </div>
 <footer id='foot'>
-Copyright &#169; glidingops.com 2014
+Copyright &#169; FaultLine Flyers and glidingops 2019
 </footer>
 </body>
 </html>
