@@ -1225,7 +1225,7 @@ function AddNewLine()
    var iRow = (nextRow-1);
    var strtp = document.getElementById("d" + iRow).value;
    var vector = document.getElementById(`vector-${iRow}`).value;
-   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"","","","","","0","0","0","","","","0");
+   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"",vector,lastTowPilot,"","","0","0","0","","","","0");
    nextRow++;
 }
 
