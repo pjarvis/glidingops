@@ -70,8 +70,8 @@ $dateTimeZone = new DateTimeZone(orgTimezone($con,$org));
 if (strlen($specific_date) > 0)
   $whatdt=$specific_date;
 $dateTime = new DateTime($whatdt, $dateTimeZone);
-$dateStr = $dateTime->format('Ymd');
-$dateStr2 = $dateTime->format('Y-m-d');
+$dateStr = $dateTime->format('mdY');
+$dateStr2 = $dateTime->format('m-d-Y');
 $flights = "";
 $towpilotroleid=0;
 $diagtext="";
@@ -232,7 +232,7 @@ $allVectors = App\Models\Vector::forLocation($location)->get()->map(function ($v
 })
 
 ?>
-var datestring = "<?php echo $dateTime->format('Ymd');?>";
+var datestring = "<?php echo $dateTime->format('mdY');?>";
 <?php $tnow=time()*1000;$strnow =(string)$tnow;?>
 var fxml="<timesheet><newassocs></newassocs><date>" + "<?php echo $dateStr;?>" + "</date><updseq>" + updseq + "</updseq><flights>" + "<?php echo $flights;?>" +"</flights></timesheet>";
 var towpilotxml = "<tpilots>" + "<?php echo $pilots;?>" + "</tpilots>";
@@ -1225,7 +1225,7 @@ function AddNewLine()
    var iRow = (nextRow-1);
    var strtp = document.getElementById("d" + iRow).value;
    var vector = document.getElementById(`vector-${iRow}`).value;
-   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"",lastVector,lastTowPilot,"","","0","0","0","","","","0");
+   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"","",lastTowPilot,"","","0","0","0","","","","0");
    nextRow++;
 }
 
