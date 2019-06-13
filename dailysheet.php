@@ -70,8 +70,8 @@ $dateTimeZone = new DateTimeZone(orgTimezone($con,$org));
 if (strlen($specific_date) > 0)
   $whatdt=$specific_date;
 $dateTime = new DateTime($whatdt, $dateTimeZone);
-$dateStr = $dateTime->format('mdY');
-$dateStr2 = $dateTime->format('m-d-Y');
+$dateStr = $dateTime->format('Ymd');
+$dateStr2 = $dateTime->format('Y-m-d');
 $flights = "";
 $towpilotroleid=0;
 $diagtext="";
@@ -232,7 +232,7 @@ $allVectors = App\Models\Vector::forLocation($location)->get()->map(function ($v
 })
 
 ?>
-var datestring = "<?php echo $dateTime->format('mdY');?>";
+var datestring = "<?php echo $dateTime->format('Ymd');?>";
 <?php $tnow=time()*1000;$strnow =(string)$tnow;?>
 var fxml="<timesheet><newassocs></newassocs><date>" + "<?php echo $dateStr;?>" + "</date><updseq>" + updseq + "</updseq><flights>" + "<?php echo $flights;?>" +"</flights></timesheet>";
 var towpilotxml = "<tpilots>" + "<?php echo $pilots;?>" + "</tpilots>";
