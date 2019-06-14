@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
  }
  $dateTimeZoneNZ = new DateTimeZone("Pacific/Auckland");
  $dateTimeNZ = new DateTime("now", $dateTimeZoneNZ);
- $dateStr = $dateTimeNZ->format('Ymd');
+ $dateStr = $dateTimeNZ->format('mdY');
  $dateStr2 = $dateTimeNZ->format('Y-m-d');
  
 

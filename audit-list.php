@@ -103,7 +103,7 @@ while ($row = mysqli_fetch_array($r) )
 {
  $rownum = $rownum + 1;
   echo "<tr class='";if (($rownum % 2) == 0)echo "even";else echo "odd";  echo "'>";if (true){echo "<td class='right'>";echo "<a href='Audit?id=";echo $row[0];echo "'>";echo $row[0];echo "</a>";echo "</td>";}
-if (true){echo "<td>";if ($row[1]!=0){$eventtime_d=new DateTime($row[1]); echo timeLocalFormat($eventtime_d,$_SESSION['timezone'],'d/m/Y H:i:s');}echo "</td>";}
+if (true){echo "<td>";if ($row[1]!=0){$eventtime_d=new DateTime($row[1]); echo timeLocalFormat($eventtime_d,$_SESSION['timezone'],'m/d/Y H:i:s');}echo "</td>";}
 if (true){echo "<td>";echo $row[2];echo "</td>";}
 if (true){echo "<td>";echo $row[3];echo "</td>";}
 if (true){echo "<td>";echo $row[4];echo "</td>";}

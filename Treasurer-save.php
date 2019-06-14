@@ -156,8 +156,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         }
         $dateEnd->setDate($year,$month,1);
 
-        $dateStart2 = $dateStart->format('Ymd');
-        $dateEnd2 = $dateEnd->format('Ymd');
+        $dateStart2 = $dateStart->format('mdY');
+        $dateEnd2 = $dateEnd->format('mdY');
 
         
 	 

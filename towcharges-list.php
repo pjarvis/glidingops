@@ -122,7 +122,7 @@ if (true){echo "<td class='right'>";echo $row[2];echo "</td>";}
 if (true){echo "<td class='right'>";echo $row[3];echo "</td>";}
 if (true){echo "<td class='right'>";echo $row[4];echo "</td>";}
 if (true){echo "<td>";echo $row[5];echo "</td>";}
-if (true){echo "<td>";if ($row[6]!=0){$effective_from_d=new DateTime($row[6]); echo $effective_from_d->format('d/m/Y');}echo "</td>";}
+if (true){echo "<td>";if ($row[6]!=0){$effective_from_d=new DateTime($row[6]); echo $effective_from_d->format('m/d/Y');}echo "</td>";}
 if (true){echo "<td class='right'>";echo $row[7];echo "</td>";}
   echo "</tr>";
 }
