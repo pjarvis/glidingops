@@ -155,8 +155,8 @@ if (true){echo "<td class='right'>";echo $row[7];echo "</td>";}
 if (true){echo "<td class='right'>";echo $row[8];echo "</td>";}
 if (true){echo "<td class='right'>";echo $row[9];echo "</td>";}
 if (true){echo "<td class='right'>";echo $row[10];echo "</td>";}
-if (true){echo "<td>";if ($row[11]!=0){$next_annual_d=new DateTime($row[11]); echo $next_annual_d->format('d/m/Y');}echo "</td>";}
-if (true){echo "<td>";if ($row[12]!=0){$next_supplementary_d=new DateTime($row[12]); echo $next_supplementary_d->format('d/m/Y');}echo "</td>";}
+if (true){echo "<td>";if ($row[11]!=0){$next_annual_d=new DateTime($row[11]); echo $next_annual_d->format('m/d/Y');}echo "</td>";}
+if (true){echo "<td>";if ($row[12]!=0){$next_supplementary_d=new DateTime($row[12]); echo $next_supplementary_d->format('m/d/Y');}echo "</td>";}
 if (true){echo "<td>";echo $row[13];echo "</td>";}
 if (true){echo "<td>";echo $row[14];echo "</td>";}
   echo "</tr>";

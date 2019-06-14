@@ -109,8 +109,8 @@ if (true){echo "<td>";echo $row[1];echo "</td>";}
 if (true){echo "<td>";echo $row[2];echo "</td>";}
 if (true){echo "<td class='right'>";echo $row[3];echo "</td>";}
 if (true){echo "<td class='right'>";echo $row[4];echo "</td>";}
-if (true){echo "<td>";if ($row[5]!=0){$lastreq_d=new DateTime($row[5]); echo timeLocalFormat($lastreq_d,$_SESSION['timezone'],'d/m/Y H:i:s');}echo "</td>";}
-if (true){echo "<td>";if ($row[6]!=0){$lastlistreq_d=new DateTime($row[6]); echo timeLocalFormat($lastlistreq_d,$_SESSION['timezone'],'d/m/Y H:i:s');}echo "</td>";}
+if (true){echo "<td>";if ($row[5]!=0){$lastreq_d=new DateTime($row[5]); echo timeLocalFormat($lastreq_d,$_SESSION['timezone'],'m/d/Y H:i:s');}echo "</td>";}
+if (true){echo "<td>";if ($row[6]!=0){$lastlistreq_d=new DateTime($row[6]); echo timeLocalFormat($lastlistreq_d,$_SESSION['timezone'],'m/d/Y H:i:s');}echo "</td>";}
   echo "</tr>";
 }
 ?>

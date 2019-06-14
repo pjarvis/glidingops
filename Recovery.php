@@ -25,7 +25,7 @@ $dateTimeZone = new DateTimeZone($_SESSION['timezone']);
 $dateTime = new DateTime('now', $dateTimeZone);
 
 ?>
-var datestring = "<?php echo $dateTime->format('Ymd');?>";
+var datestring = "<?php echo $dateTime->format('mdY');?>";
 function escapeHtml(unsafe) {
     return unsafe
          .replace(/&/g, "&amp;")

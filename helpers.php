@@ -283,7 +283,7 @@ function SendMail($to,$subject,$message)
 function getMemmbersXmlRows($db, $org, $timesheedDate)
 {
   $activeStatusID = getActiveStatusId($db);
-  $timesheedDateStr = $timesheedDate->format('Ymd');
+  $timesheedDateStr = $timesheedDate->format('mdY');
 
   $q1 = "SELECT DISTINCT members.* FROM members
           LEFT JOIN flights pic_flight ON pic_flight.pic = members.id
