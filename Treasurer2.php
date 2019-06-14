@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }
     $dateEnd->setDate($year,$month,1);
 
-    $dateStart2 = $dateStart->format('mdY');
-    $dateEnd2 = $dateEnd->format('mdY');
+    $dateStart2 = $dateStart->format('Ymd');
+    $dateEnd2 = $dateEnd->format('Ymd');
 	
     $con_params = require('./config/database.php'); $con_params = $con_params['gliding']; 
 $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params['password'],$con_params['dbname']);

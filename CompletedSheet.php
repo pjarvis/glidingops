@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
  }
  $dateTimeZone = new DateTimeZone(orgTimezone($con,$org));
  $dateTime = new DateTime("now", $dateTimeZone);
- $dateStr = $dateTime->format('mdY');
+ $dateStr = $dateTime->format('Ymd');
  $dateStr2=$dateTime->format('d/m/Y');
 
  if(isset($_GET['date']))

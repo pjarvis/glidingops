@@ -101,7 +101,7 @@ for ($i=0;$i < count($flightids);$i++)
    $dt3->setTimestamp(intval($row[1]));
 
    echo "<tr>";
-   echo "<td>".timeLocalFormat($dt3,$tz,'m/d/Y H:i')."</td><td>".$row[0]."</td><td>";
+   echo "<td>".timeLocalFormat($dt3,$tz,'d/m/Y H:i')."</td><td>".$row[0]."</td><td>";
    //Loop here for each airspace   
    $q2 = "select id, name, Lower_height from airspace order by id ASC";
    $r2 = mysqli_query($con,$q2);
@@ -114,7 +114,7 @@ for ($i=0;$i < count($flightids);$i++)
 
 
      $maxht = 0;
-     $q1="SELECT lattitude,longitude,altitude from tracksarchive where airspacebreach = 1 and glider = '".$row[0]."' and point_time > '".$dt1->format('m-d-Y H:i:s')."' and point_time < '".$dt2->format('m-d-Y H:i:s')."' order by point_time ASC";  
+     $q1="SELECT lattitude,longitude,altitude from tracksarchive where airspacebreach = 1 and glider = '".$row[0]."' and point_time > '".$dt1->format('Y-m-d H:i:s')."' and point_time < '".$dt2->format('Y-m-d H:i:s')."' order by point_time ASC";  
      $r1 = mysqli_query($con2,$q1);
      while ($row1 = mysqli_fetch_array($r1) )
      {
@@ -133,7 +133,7 @@ for ($i=0;$i < count($flightids);$i++)
      if ($maxht > 0)
         echo $row2[1]." - ".$maxht." ";
    }
-   echo "</td><td><a href='MyFlightMap3.php?glider=".$row[0]."&from=".$dt1->format('m-d-Y H:i:s')."&to=".$dt2->format('m-d-Y H:i:s')."&flightid=".$flightid."'>MAP</a></td>";
+   echo "</td><td><a href='MyFlightMap3.php?glider=".$row[0]."&from=".$dt1->format('Y-m-d H:i:s')."&to=".$dt2->format('Y-m-d H:i:s')."&flightid=".$flightid."'>MAP</a></td>";
    echo "</tr>";
 }
 echo "</table>";

@@ -31,7 +31,7 @@ if ($org == 0)
 }
 $dateTimeZone = new DateTimeZone(orgTimezone($con,$org));
 $dateTime = new DateTime("now", $dateTimeZone);
-$dateStr = $dateTime->format('mdY');
+$dateStr = $dateTime->format('Ymd');
 $dateStr2 = $dateTime->format('Y-m-d');
 ?>
 <!DOCTYPE HTML>
@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
  if($_POST['date'] != "" )
  {
   $dateTime = new DateTime($_POST['date']);
-  $dateStr=$dateTime->format('mdY');
+  $dateStr=$dateTime->format('Ymd');
   $towluanch =  getTowLaunchType($con);
   $r = mysqli_query($con,"SELECT * FROM billingoptions where bill_other = 1");
   $billother=9999;

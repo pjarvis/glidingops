@@ -56,7 +56,7 @@ if (mysqli_connect_errno())
 
 $dateTimeZone = new DateTimeZone(orgTimezone($con,$org));
 $dateTime = new DateTime("now", $dateTimeZone);
-$dateStr = $dateTime->format('mdY');
+$dateStr = $dateTime->format('Ymd');
 $dateStr2 = $dateTime->format('Y-m-d');
 $flightTypeGlider = getGlidingFlightType($con); 
 ?>

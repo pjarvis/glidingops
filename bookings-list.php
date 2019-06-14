@@ -130,8 +130,8 @@ while ($row = mysqli_fetch_array($r) )
   echo "<tr class='";if (($rownum % 2) == 0)echo "even";else echo "odd";  echo "'>";if (true){echo "<td class='right'>";echo "<a href='bookings.php?id=";echo $row[0];echo "'>";echo $row[0];echo "</a>";echo "</td>";}
 if (true){echo "<td>";echo $row[1];echo "</td>";}
 if (true){echo "<td>";echo $row[2];echo "</td>";}
-if (true){echo "<td>";if ($row[3]!=0){$start_d=new DateTime($row[3]); echo timeLocalFormat($start_d,$_SESSION['timezone'],'m/d/Y H:i:s');}echo "</td>";}
-if (true){echo "<td>";if ($row[4]!=0){$end_d=new DateTime($row[4]); echo timeLocalFormat($end_d,$_SESSION['timezone'],'m/d//Y H:i:s');}echo "</td>";}
+if (true){echo "<td>";if ($row[3]!=0){$start_d=new DateTime($row[3]); echo timeLocalFormat($start_d,$_SESSION['timezone'],'d/m/Y H:i:s');}echo "</td>";}
+if (true){echo "<td>";if ($row[4]!=0){$end_d=new DateTime($row[4]); echo timeLocalFormat($end_d,$_SESSION['timezone'],'d/m/Y H:i:s');}echo "</td>";}
 if (true){echo "<td>";echo $row[5];echo "</td>";}
 if (true){echo "<td>";echo $row[6];echo "</td>";}
 if (true){echo "<td>";echo $row[7];echo "</td>";}
