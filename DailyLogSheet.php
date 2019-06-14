@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 	$diagtext .= "Bill Other = " . $billother ."<br>";
   }
   echo "<h1>Daily Time Sheet for: ";
-  echo $dateTime->format('d/m/Y');
+  echo $dateTime->format('m/d/Y');
   echo "</h1>";
 
 
