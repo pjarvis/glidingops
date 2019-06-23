@@ -26,21 +26,18 @@ var xmlDoc;
 var locstore = 0;
 nexttempid=99998;
 var inSync=0;
-
 function errmsg(msg)
 {
   document.getElementById("err").innerHTML=msg;
 }
-
 if (window.XMLHttpRequest) {
   xmlhttp=new XMLHttpRequest();
 }
-
 <?php
 include 'timehelpers.php';
 include 'helpers.php';
 $DEBUG=0;
-$org=6;
+$org=0;
 $location= '';
 $specific_date='';
 if ($_SERVER["REQUEST_METHOD"] == "GET")
@@ -61,7 +58,6 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
  {
   $specific_date = $_GET['ds'];
  }
-
 }
 $con_params = require('./config/database.php'); $con_params = $con_params['gliding'];
 $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params['password'],$con_params['dbname']);
@@ -79,11 +75,9 @@ echo "var strToday=\"" . $dateStr2 ."\";";
 echo "var strTodayYear=\""  . $dateTime->format('Y') . "\";";
 echo "var strTodayMonth=\""  . $dateTime->format('m') . "\";";
 echo "var strTodayDay=\""   . $dateTime->format('d') . "\";";
-
 $towpilotroleid=getRoleId($con,'Tow Pilot');
 $winchdriverroleid=getRoleId($con,'Winch Driver');
 $towplanetype=getTowPlaneType($con,$org);
-
 $launchTypeTow=getTowLaunchType($con);
 $launchTypeSelf=getSelfLaunchType($con);
 $launchTypeWinch=getWinchLaunchType($con);
@@ -91,12 +85,10 @@ $shorttermclass = getShortTermClass($con,$org);
 $towChargeType = getTowChargeType($con,$org);
 echo "var towChargeType=" . $towChargeType . ";";
 $activeStatusID = getActiveStatusId($con);
-
  //Find billing option for Other Member
  $r = mysqli_query($con,"SELECT * FROM billingoptions WHERE bill_other = 1");
  $row = mysqli_fetch_array($r);
  $billing_other_member = $row['id'];
-
 $q2 = "SELECT * FROM flights WHERE flights.org = {$org} and localdate = {$dateStr} ORDER BY seq ASC";
 $r2 = mysqli_query($con,$q2);
 $row_cnt = $r2->num_rows;
@@ -118,16 +110,13 @@ if ($row_cnt > 0)
       $flights .= "</del><launchtype>";
       $flights .= $row['launchtype'];
       $flights .= "</launchtype><plane>";
-
       if ($row['launchtype'] == $launchTypeTow)
            $flights .= "t" . $row['towplane'];
       else
            $flights .= "l" . $row['launchtype'];
-
       $flights .= "</plane>";
       $flights .= "<glider>${row['glider']}</glider>";
       $flights .= "<vector>${row['vector']}</vector>";
-
       $flights .= "<towpilot>";
       $flights .= $row['towpilot'];
       $flights .= "</towpilot><p1>";
@@ -143,7 +132,6 @@ if ($row_cnt > 0)
       $flights .= "</land><height>";
       $flights .= $row['height'];
       $flights .= "</height><charges>";
-
       if ($row['billing_option'] == $billing_other_member)
       {
            $flights .= "m" . $row['billing_member1'];
@@ -152,7 +140,6 @@ if ($row_cnt > 0)
       {
            $flights .= "c" . $row['billing_option'];
       }
-
       $flights .= "</charges><comments>";
       $vcom = $row['comments'];
       $vcom = str_replace("&","&amp;",$vcom);
@@ -162,7 +149,6 @@ if ($row_cnt > 0)
 }
 else
     $udpver = 1;
-
 //Create tow pilot list
 $pilots="";
 $q2 = "SELECT a.id, a.displayname, a.surname , a.firstname from role_member LEFT JOIN members a ON a.id = role_member.member_id where role_member.org = ".$org. " and role_id = " .$towpilotroleid . " order by a.surname,a.firstname";
@@ -175,7 +161,6 @@ while ($row = mysqli_fetch_array($r2) )
   $pilots .= $row[1];
   $pilots .= "</name></pilot>";
 }
-
 //Create winch driver list
 $winchdrivers="";
 $q2 = "SELECT a.id, a.displayname, a.surname , a.firstname from role_member LEFT JOIN members a ON a.id = role_member.member_id where role_member.org = ".$org. " and role_id = " .$winchdriverroleid . " order by a.surname,a.firstname";
@@ -188,9 +173,7 @@ while ($row = mysqli_fetch_array($r2) )
   $winchdrivers .= $row[1];
   $winchdrivers .= "</name></wdriver>";
 }
-
 $members=getMemmbersXmlRows($con, $org, $dateTime);
-
 //Billing options
 $chargeopts="<ChargeOpts>";
 $q2 = "SELECT * FROM billingoptions";
@@ -207,7 +190,6 @@ while ($row = mysqli_fetch_array($r2) )
  }
 }
 $chargeopts .="</ChargeOpts>";
-
 //Tow Planes
 $towplanes="<TowPlanes>";
 $q2 = "SELECT * FROM aircraft where aircraft.org = ".$org. " and type = " .$towplanetype;
@@ -221,16 +203,12 @@ while ($row = mysqli_fetch_array($r2) )
    $towplanes .= "</rego></plane>";
 }
 $towplanes .="</TowPlanes>";
-
-
 mysqli_close($con);
-
 echo "var updseq=" . $udpver . ";";
 echo "var server_updseq = updseq;";
 $allVectors = App\Models\Vector::forLocation($location)->get()->map(function ($vector) {
   return $vector->designation;
 })
-
 ?>
 var datestring = "<?php echo $dateTime->format('Ymd');?>";
 <?php $tnow=time()*1000;$strnow =(string)$tnow;?>
@@ -242,14 +220,13 @@ var allVectors = [<?=$allVectors->map(function ($v) { return "\"{$v}\""; })->imp
 var chargeopts = "<?php echo $chargeopts;?>";
 var towplanes = "<?php echo $towplanes;?>";
 var pollcnt=0;
-
 // addrowdata
 DailySheet.init(<?php echo $launchTypeTow;?>,
                 <?php echo $launchTypeSelf;?>,
+                <?php echo $launchTypeWinch;?>,
                 Number(strTodayYear),
                 Number(strTodayMonth) - 1,
                 Number(strTodayDay));
-
 function ShowCheckErrors(xml)
 {
   var bErr=0;
@@ -257,12 +234,10 @@ function ShowCheckErrors(xml)
   var e;
   var checks=xml.getElementsByTagName("checks")[0].childNodes;
   var divnode = document.getElementById("areachecks");
-
   //remove the bookins area
   var divbookings = document.getElementById("bookings");
   if (null != divbookings)
     divbookings.parentNode.removeChild(divbookings);
-
   //remove all the child nodes
   var cn=divnode.childNodes;
   while (cn.length > 0)
@@ -270,13 +245,10 @@ function ShowCheckErrors(xml)
     divnode.removeChild(cn[0]);
     cn=divnode.childNodes;
   }
-
-
   for (k=0;k<checks.length;k++)
   {
      if (checks[k].nodeName=="err")
      {
-
        if (bErr==0)
        {
           e = document.createElement("H2");
@@ -289,13 +261,10 @@ function ShowCheckErrors(xml)
        e.innerHTML = checks[k].childNodes[0].nodeValue;
        divnode.appendChild(e);
      }
-
   }
-
   if (bErr==0)
     window.location.href = "CompletedSheet.php?org=<?php echo $org;?>";
 }
-
 function xmlReplyType(xml)
 {
   if (null != xml)
@@ -315,7 +284,6 @@ function xmlReplyType(xml)
   }
   return "";
 }
-
 xmlhttp.onreadystatechange = function ()
 {
     if (xmlhttp.readyState == 4)
@@ -323,15 +291,12 @@ xmlhttp.onreadystatechange = function ()
       console.log("Reply from server");
       var xmlReply = xmlhttp.responseXML;
       var replyType=xmlReplyType(xmlReply);
-
       if (replyType=="allmembers")
       {
         console.log("Reply type: allmembers");
         allmembers = xml2Str(xmlReply);
         DailySheet.refreshMembers()
       }
-
-
       if (replyType=="bookings")
       {
          console.log("Reply type: bookings");
@@ -342,12 +307,9 @@ xmlhttp.onreadystatechange = function ()
          console.log("Reply type: checks");
          ShowCheckErrors(xmlReply);
       }
-
       if (replyType == "status") {
         console.log("Reply type: status");
-
         var status = xmlReply.getElementsByTagName("status")[0].childNodes[0].nodeValue;
-
         //See if we have any diag messages.
         var diagmsg = "";
         if (null != xmlReply.getElementsByTagName("diag")) {
@@ -358,24 +320,19 @@ xmlhttp.onreadystatechange = function ()
         }
         //check for member updates.
         var nodes = xmlReply.getElementsByTagName("upd")[0].childNodes;
-
         for (i = 0; i < nodes.length; i++) {
-
           if (nodes[i].nodeName == "member") {
             var tid = nodes[i].getElementsByTagName("tempid")[0].childNodes[0].nodeValue;
             var cell = nodes[i].getElementsByTagName("cell")[0].childNodes[0].nodeValue;
             var colid = nodes[i].getElementsByTagName("colid")[0].childNodes[0].nodeValue;
             var id = nodes[i].getElementsByTagName("id")[0].childNodes[0].nodeValue;
             var disp = nodes[i].getElementsByTagName("displayname")[0].childNodes[0].nodeValue;
-
             //Find the cell and update the real ID
             var eNodes = document.getElementById(cell).childNodes;
             for (j = 0; j < eNodes.length; j++) {
               if (eNodes[j].value == tid)
                 eNodes[j].value = id;
             }
-
-
             //Add this member to the new lists
             if (colid == "towpilot") {
               parser = new DOMParser();
@@ -386,13 +343,11 @@ xmlhttp.onreadystatechange = function ()
               var nid = towDoc.createElement("id");
               nid.appendChild(towDoc.createTextNode(id));
               pilot.appendChild(nid);
-
               var nnam = towDoc.createElement("name");
               nnam.appendChild(towDoc.createTextNode(disp));
               pilot.appendChild(nnam);
               towpilotxml = xml2Str(towDoc);
               console.log("Update towpilot list " + towpilotxml);
-
             }
             //Now add to members list
             parser = new DOMParser();
@@ -403,19 +358,16 @@ xmlhttp.onreadystatechange = function ()
             var nid = memDoc.createElement("id");
             nid.appendChild(memDoc.createTextNode(id));
             member.appendChild(nid);
-
             var nnam = memDoc.createElement("name");
             nnam.appendChild(memDoc.createTextNode(disp));
             member.appendChild(nnam);
             allmembers = xml2Str(memDoc);
             DailySheet.refreshMembers()
-
             // update the flights in the xmlDoc
             let flights = xmlDoc.getElementsByTagName("flights")[0].childNodes
             flights.forEach(function(flight) {
               let p1 = flight.getElementsByTagName("p1")[0]
               let p2 = flight.getElementsByTagName("p2")[0]
-
               if(p1.childNodes[0] && p1.childNodes[0].nodeValue === tid) {
                 updatenode(xmlDoc, p1, id)
               }
@@ -426,7 +378,6 @@ xmlhttp.onreadystatechange = function ()
             if (locstore ==1){
               localStorage.setItem(datestring, xml2Str(xmlDoc))
             }
-
             //Delete this node form the update required
             var newassocnode = xmlDoc.getElementsByTagName("newassocs")[0].childNodes;
             for (k = 0; k < newassocnode.length; k++) {
@@ -437,7 +388,6 @@ xmlhttp.onreadystatechange = function ()
             }
           }
         }
-
         server_updseq = xmlReply.getElementsByTagName("updseq")[0].childNodes[0].nodeValue;
         if (parseInt(server_updseq) == parseInt(updseq)) {
           inSync = 1;
@@ -445,13 +395,10 @@ xmlhttp.onreadystatechange = function ()
           st.innerHTML = "Sync";
           st.setAttribute("class", "green");
         }
-
         console.log("Reply from server status: " + status);
       }
     }
 }
-
-
 function sendXMLtoServer()
 {
   //Update the field that show sync
@@ -461,7 +408,6 @@ function sendXMLtoServer()
   st.setAttribute("class","red");
   var v="updflights.php";
   var params="org=<?php echo $org; ?>&upd=" + xml2Str(xmlDoc);
-
   console.log(v + params);
   xmlhttp.open("POST", v, true);
   //Send the proper header information along with the request
@@ -470,7 +416,6 @@ function sendXMLtoServer()
   //xmlhttp.setRequestHeader("Connection", "close");
   xmlhttp.send(params);
 }
-
 function getBookings()
 {
   console.log("StrToday = " + strToday);
@@ -479,7 +424,6 @@ function getBookings()
   xmlhttp.open("GET", v, true);
   xmlhttp.send();
 }
-
 function getMembers()
 {
   console.log("StrToday = " + strToday);
@@ -488,7 +432,6 @@ function getMembers()
   xmlhttp.open("GET", v, true);
   xmlhttp.send();
 }
-
 function finalise()
 {
   if (inSync==0){
@@ -509,7 +452,6 @@ function finalise()
     }
   }
 }
-
 function pad(num, size) {
     var s = num+"";
     while (s.length < size) s = "0" + s;
@@ -532,7 +474,6 @@ function strNodeValue(node)
         else
            return "";
 }
-
 function updatenode(doc,node,val)
 {
   if (null != node.childNodes[0])
@@ -542,7 +483,6 @@ function updatenode(doc,node,val)
      node.appendChild(doc.createTextNode(val));
   }
 }
-
 function xml2Str(xmlNode) {
    try {
       // Gecko- and Webkit-based browsers (Firefox, Chrome), Opera.
@@ -560,7 +500,6 @@ function xml2Str(xmlNode) {
    }
    return false;
 }
-
 function UnSelect(field)
 {
    var selelement = document.getElementById(field);
@@ -574,9 +513,7 @@ function UnSelect(field)
   }
         opts[0].selected = true;
    }
-
 }
-
 function newassociatecancel(field)
 {
   UnSelect(field);
@@ -584,47 +521,37 @@ function newassociatecancel(field)
   $('#tempdiv').remove()
   $('#container').show()
 }
-
 function newassociate(field)
 {
  console.log("New associate field = " + field);
  var strTempId = nexttempid.toString();
  var colid = "";
  var org=<?php echo $org; ?>;
-
  var sur = document.getElementById("naa").value;
  var fir = document.getElementById("nab").value;
  var mob = "";
  var em = "";
-
  //We need to check that fields have been filled out
  if (sur.length == 0 || fir.length == 0)
  {
     alert("You must enter values for Surname and Firstname");
     return;
  }
-
  sur = firstUpper(sur);
  fir = firstUpper(fir);
-
  var f=document.getElementById(field);
  colid= f.getAttribute("colname");
-
  // Unselect
  $(f).val([])
-
  var s = document.createElement("option");
  var displayname = fir + " " + sur;
  s.value= strTempId;
-
  s.innerHTML = displayname;
  f.appendChild(s);
  $(f).val([strTempId])
-
  if( $(f).hasClass('combo') || $(f).hasClass('combo-search') ) {
   $(f).selectpicker('refresh')
  }
-
  var newassocnode = xmlDoc.getElementsByTagName("newassocs")[0];
  if (null != newassocnode)
  {
@@ -632,40 +559,30 @@ function newassociate(field)
     var t;
     var s = xmlDoc.createElement("member");
     newassocnode.appendChild(s);
-
     t = xmlDoc.createElement("tempid");
     t.appendChild(xmlDoc.createTextNode(strTempId));
     s.appendChild(t);
-
     t = xmlDoc.createElement("cell");
     t.appendChild(xmlDoc.createTextNode(field));
     s.appendChild(t);
-
     t = xmlDoc.createElement("colid");
     t.appendChild(xmlDoc.createTextNode(colid));
     s.appendChild(t);
-
     t = xmlDoc.createElement("org");
     t.appendChild(xmlDoc.createTextNode(org));
     s.appendChild(t);
-
-
     t = xmlDoc.createElement("surname");
     t.appendChild(xmlDoc.createTextNode(sur));
     s.appendChild(t);
-
     t = xmlDoc.createElement("firstname");
     t.appendChild(xmlDoc.createTextNode(fir));
     s.appendChild(t);
-
     t = xmlDoc.createElement("displayname");
     t.appendChild(xmlDoc.createTextNode(displayname));
     s.appendChild(t);
-
     t = xmlDoc.createElement("mobile");
     t.appendChild(xmlDoc.createTextNode(mob));
     s.appendChild(t);
-
     t = xmlDoc.createElement("email");
     t.appendChild(xmlDoc.createTextNode(em));
     s.appendChild(t);
@@ -673,15 +590,12 @@ function newassociate(field)
  else {
    console.log("ERROR creating XML");
  }
-
  nexttempid++;
-
  $('#tempdiv').hide()
  $('#tempdiv').remove()
  $('#container').show()
  fieldchange(f)
 }
-
 function createAssociateMember(field)
 {
   //We need to create a new window
@@ -689,7 +603,6 @@ function createAssociateMember(field)
   //Need to hide the container
   $('#container').hide()
   // document.getElementById("container").style.display="none";
-
   var win=document.createElement("div");
   win.id = "tempdiv";
   document.body.appendChild(win);
@@ -701,7 +614,6 @@ function createAssociateMember(field)
 "</table>";
   win.innerHTML = codeHTML;
 }
-
 function anyDeleted(doc)
 {
   var list = doc.getElementsByTagName("flights")[0].childNodes;
@@ -716,7 +628,6 @@ function anyDeleted(doc)
   }
   return false;
 }
-
 function findxmlflightseq(list,id)
 {
   for (i=0; i<list.length; i++)
@@ -730,8 +641,6 @@ function findxmlflightseq(list,id)
   }
   return null;
 }
-
-
 function updatexmlflight(doc,seq,launchtype,plane,glider,vector,towpilot,p1,p2,start,towland,land,height,charges,comments,del)
 {
    var list = doc.getElementsByTagName("flights")[0].childNodes;
@@ -741,9 +650,7 @@ function updatexmlflight(doc,seq,launchtype,plane,glider,vector,towpilot,p1,p2,s
    {
       node = flight.childNodes;
       var i;
-
       var node2 = flight.getElementsByTagName("towpilot");
-
       updseq++;
       updatenode(doc,doc.getElementsByTagName("updseq")[0],updseq);
       updatenode(doc,flight.getElementsByTagName("launchtype")[0],launchtype);
@@ -768,100 +675,80 @@ function updatexmlflight(doc,seq,launchtype,plane,glider,vector,towpilot,p1,p2,s
        var vnode,newtext;
        updseq++;
        updatenode(doc,doc.getElementsByTagName("updseq")[0],updseq);
-
        flight = doc.createElement('flight');
        doc.getElementsByTagName("flights")[0].appendChild(flight);
-
        vnode = doc.createElement('org');
        newtext=doc.createTextNode(org);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('location');
        newtext=doc.createTextNode(loc);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('id');
        newtext=doc.createTextNode(seq);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('launchtype');
        newtext=doc.createTextNode(launchtype);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('plane');
        newtext=doc.createTextNode(plane);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('glider');
        newtext=doc.createTextNode(glider);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('vector');
        newtext=doc.createTextNode(vector);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('towpilot');
        newtext=doc.createTextNode(towpilot);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('p1');
        newtext=doc.createTextNode(p1);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('p2');
        newtext=doc.createTextNode(p2);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('start');
        newtext=doc.createTextNode(start);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('land');
        newtext=doc.createTextNode(land);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('towland');
        newtext=doc.createTextNode(towland);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('height');
        newtext=doc.createTextNode(height);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('charges');
        newtext=doc.createTextNode(charges);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('comments');
        newtext=doc.createTextNode(comments);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
        vnode = doc.createElement('del');
        newtext=doc.createTextNode(del);
        vnode.appendChild(newtext);
        flight.appendChild(vnode);
-
    }
    if (locstore ==1)
        localStorage.setItem(datestring, xml2Str(doc) );
 }
-
 function greyRow(row,b)
 {
   if (b > 0)
@@ -877,7 +764,6 @@ function greyRow(row,b)
     $(row).find('td').removeClass('deleted')
   }
 }
-
 function deleteline(what, row)
 {
   var iRow = what.id;
@@ -894,7 +780,6 @@ function deleteline(what, row)
   }
   fieldchange(what);
 }
-
 function fieldchange(what, row = null) {
   var iRow = row;
   if(!iRow) {
@@ -902,11 +787,8 @@ function fieldchange(what, row = null) {
     iRow = what.id;
     iRow = iRow.substring(1, iRow.length);
   }
-
   var plane = document.getElementById("b" + iRow).value;
   var launchtype = <?php echo $launchTypeTow;?> ;
-
-
   var glider = document.getElementById("c" + iRow).value;
   glider = glider.toUpperCase();
   if (glider.length > 0) {
@@ -920,26 +802,21 @@ function fieldchange(what, row = null) {
   var towp = document.getElementById("d" + iRow).value;
   var p1 = document.getElementById("e" + iRow).value;
   var p2 = document.getElementById("f" + iRow).value;
-
   if (towp == "new" || p1 == "new" || p2 == "new") {
     UnSelect(what.id);
     createAssociateMember(what.id);
     return;
   }
-
   var n = document.getElementById("g" + iRow);
   var start = n.getAttribute("timedata");
-
   n = document.getElementById("h" + iRow);
   var land = n.getAttribute("timedata");
-
   //towland is optional
   var towland = 0;
   if (towChargeType == 2) {
     n = document.getElementById("n" + iRow);
     towland = n.getAttribute("timedata");
   }
-
   var height = 0;
   if (towChargeType == 1) {
     height = document.getElementById("i" + iRow).value;
@@ -952,37 +829,29 @@ function fieldchange(what, row = null) {
       }
     }
   }
-
   var charges = document.getElementById("k" + iRow).value;
   var comments = document.getElementById("l" + iRow).value;
   comments = comments.replace(/&/g, "&amp;");
   comments = escape(comments);
   var del = document.getElementById("m" + iRow).value;
-
   updatexmlflight(xmlDoc, iRow, launchtype, plane, glider, vector, towp, p1, p2, start, towland, land, height, charges, comments, del);
   //update the seq
   sendXMLtoServer();
 }
-
 function calcFlightTime(iRow)
 {
-
-
  var dest = document.getElementById("j" + iRow);
  //get end time
  var edbut = document.getElementById("h" + iRow);
-
  if (edbut.nodeName.toUpperCase() == "INPUT")
  {
    var etv = edbut.getAttribute("timedata")
-
    var stbut = document.getElementById("g" + iRow);
    var tv = stbut.getAttribute("timedata");
    var e = parseInt(etv) - parseInt(tv);
    mins = Math.floor((e / 60000) % 60);
    while (null != dest.childNodes[0])
      dest.removeChild(dest.childNodes[0]);
-
    var n = document.createTextNode(pad(Math.floor( e / (3600 * 1000)),2) + ":" + pad(mins,2));
    dest.appendChild(n);
  }
@@ -994,20 +863,17 @@ function calcFlightTime(iRow)
     if (edbut.nodeName.toUpperCase() == "INPUT")
     {
       var etv = edbut.getAttribute("timedata")
-
       var stbut = document.getElementById("g" + iRow);
       var tv = stbut.getAttribute("timedata");
       var e = parseInt(etv) - parseInt(tv);
       mins = Math.floor((e / 60000) % 60);
       while (null != dest.childNodes[0])
          dest.removeChild(dest.childNodes[0]);
-
       var n = document.createTextNode(pad(Math.floor( e / (3600 * 1000)),2) + ":" + pad(mins,2));
       dest.appendChild(n);
     }
  }
 }
-
 function getseconds(strTime)
 {
  var n = strTime.search(":");
@@ -1020,53 +886,40 @@ function checktimestr(strTime)
     return false;
   if (strTime.length < (n+3))
     return false;
-
   var hours = parseInt(strTime.substr(0,n));
   var mins = parseInt(strTime.substr(n+1,strTime.length-(n+1)) );
-
   if (hours < 0 || hours > 23)
      return false;
-
   if (mins < 0 || mins > 59)
      return false;
-
-
   return true;
 }
-
 function timechange(what)
 {
   var iRow = what.id;
   iRow = iRow.substring(1,iRow.length);
-
   var strPrev = what.getAttribute('prevval');
   var strNew  = what.value;
   strNew= strNew.trim();
   strPrev= strPrev.trim();
-
   if (!checktimestr(strNew) || !checktimestr(strPrev))
   {
      alert("Invalid time format; please enter as hh:mm");
      what.value=strPrev;
      return;
   }
-
   var x = strNew.search(":");
   var hours = parseInt(strNew.substr(0,x));
   var mins = parseInt(strNew.substr(x+1,strNew.length-(x+1)) );
-
   var n=getseconds(strNew)-getseconds(strPrev);
   n = n * 1000;
   var d2 = new Date(strTodayYear,parseInt(strTodayMonth)-1,strTodayDay,hours,mins,0);
-
   what.setAttribute("timedata",d2.getTime());
   what.value= pad(d2.getHours(),2) + ":" + pad(d2.getMinutes(),2);
   what.setAttribute("prevval",what.value);
-
   calcFlightTime(iRow);
   fieldchange(what);
 }
-
 function poll()
 {
   pollcnt++;
@@ -1084,18 +937,15 @@ function poll()
       if (inSync==1)
         getMembers();
   }
-
   if ((pollcnt % 3600) == 0)
   {
       pollcnt = 0;
   }
 }
-
 function StartUp()
 {
   $('#loading-spinner').show()
   setInterval(poll,1000);
-
   var bUpdServer = 0;
   var lastVector = "";
   var lastTowPilot="";
@@ -1107,25 +957,19 @@ function StartUp()
   } else {
     lxml = null;
   }
-
   parser=new DOMParser();
   xmlDoc=parser.parseFromString(fxml,"text/xml");
-
   var st = document.getElementById("sync");
   st.innerHTML = "Sync";
   st.setAttribute("class","green");
   inSync=1;
-
-
   if (null != lxml)
   {
     parserl=new DOMParser();
       ldoc=parserl.parseFromString(lxml,"text/xml");
-
     //Is this version greater than that from the server.
     var s = xmlDoc.getElementsByTagName("updseq")[0].childNodes[0].nodeValue;
     var l = ldoc.getElementsByTagName("updseq")[0].childNodes[0].nodeValue;
-
     if (parseInt(l) > parseInt(s) )
     {
       fxml = lxml;
@@ -1136,35 +980,27 @@ function StartUp()
       bUpdServer = 1;
       inSync=0;
     }
-
   }
-
   if (locstore==1) {
     localStorage.setItem(datestring, fxml);
   }
   if(debug) {
     console.log(xml2Str(xmlDoc));
   }
-
   var dt = xmlDoc.getElementsByTagName("date")[0].childNodes[0].nodeValue;
-
   nextRow = 1;
   var today = new Date(parseInt(dt));
   var year    = today.getFullYear();
   var month   = today.getMonth() + 1;
   var day     = today.getDate();
   document.getElementById("dayfield").innerHTML = dt.substring(6,8) + "/" + dt.substring(4,6) + "/" + dt.substring(0,4);
-
   grplist = xmlDoc.getElementsByTagName("flights")[0].childNodes;
-
   var k;
   for (k=0; k<grplist.length; k++)
   {
-
     if  (grplist[k].nodeName == "flight") {
       var vid = grplist[k].getElementsByTagName("id")[0].childNodes[0].nodeValue;
       var vplane = strNodeValue(grplist[k].getElementsByTagName("plane")[0].childNodes[0]);
-
       var vglider = strNodeValue(grplist[k].getElementsByTagName("glider")[0].childNodes[0]);
       var vVector = strNodeValue(grplist[k].getElementsByTagName("vector")[0].childNodes[0]);
       lastVector = vVector;
@@ -1185,15 +1021,12 @@ function StartUp()
   }
   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"",lastVector,lastTowPilot,"","","0","0","0","","","","0");
   nextRow++;
-
   if (bUpdServer == 1){
     sendXMLtoServer();
   }
-
   getBookings();
   $('#loading-spinner').hide()
 }
-
 function towlandbutton(what)
 {
   var stid = what.id;
@@ -1213,23 +1046,18 @@ function towlandbutton(what)
     para.size=5;
     para.id = stid;
     parent.appendChild(para);
-
     calcFlightTime(iRow);
     fieldchange(what);
   }
 }
-
 function AddNewLine()
 {
    var iRow = (nextRow-1);
    var strtp = document.getElementById("d" + iRow).value;
    var vector = document.getElementById(`vector-${iRow}`).value;
-   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"",vector,"","","","0","0","0","","","","0");
+   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"",vector,strtp,"","","0","0","0","","","","0");
    nextRow++;
 }
-
-
-
 </script>
 </head>
 <body id="body" onload="StartUp()">
@@ -1237,11 +1065,9 @@ function AddNewLine()
 <?php if ($org <= 0){ die("Cannot start daily log sheet as Club Organisation not specified");}  ?>
 <?php if (strlen($location) == 0){ header('Location: StartDay.php?org='.$org);}  ?>
 <div id="container">
-
 <span id='dayfield'>DATE</span>
 <span id='sync'>SYNC</span>
 <br>
-
 <table id='t1' style="width: 100%" class="table-condensed">
 <?php if ($towChargeType==2) echo "<tr><th colspan='9'></th><th colspan='2'>TIME</th></tr><tr>";?>
 <th>SEQ</th>
@@ -1249,7 +1075,7 @@ function AddNewLine()
 <th>GLIDER</th>
 <th>VECTOR</th>
 <th>TOW PILOT<br/>WINCH DRIVER</th>
-<th>PILOT<br/>P1</th>
+<th>PILOT</br/>P1</th>
 <th>P2</th>
 <th>START</th>
 <?php if ($towChargeType==2) echo "<th>TOW LAND</th>";?>

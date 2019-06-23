@@ -2,9 +2,9 @@
 <?php
 if(isset($_SESSION['security']))
 {
- if (!($_SESSION['security'] & 1))
+ if (!($_SESSION['security'] >= 1))
  {
-  die("Secruity level too low for this page");
+  die("Security level too low for this page");
  }
 }
 else
@@ -50,7 +50,7 @@ if ($row['password'] == $mypasswordold)
  $newpw2 = stripslashes($newpw2);
  if ($newpw1 != $newpw2)
  {
-    $errtxt =  "New passords not identicle";
+    $errtxt =  "New passords not identical";
     
  }
  else
