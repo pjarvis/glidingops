@@ -1,4 +1,4 @@
 <div id='head'>
-<p class='headp1'>wellington</p>
+<p class='headp1'>FaultLine Flyers</p>
 <p class='headp2'>gliding club operations</p>
 </div>

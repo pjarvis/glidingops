@@ -252,7 +252,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
  $emerg_country_f = InputChecker($_POST["emerg_country_i"]);
  $emerg_postcode_f = InputChecker($_POST["emerg_postcode_i"]);
  $gnz_number_f = InputChecker($_POST["gnz_number_i"]);
- if (!empty($gnz_number_f ) ) {if (!is_numeric($gnz_number_f ) ) {$gnz_number_err = "GNZ NUMBER is not numeric";$error = 1;}}
+ if (!empty($gnz_number_f ) ) {if (!is_numeric($gnz_number_f ) ) {$gnz_number_err = "SSA NUMBER is not numeric";$error = 1;}}
  $qgp_number_f = InputChecker($_POST["qgp_number_i"]);
  if (!empty($qgp_number_f ) ) {if (!is_numeric($qgp_number_f ) ) {$qgp_number_err = "QGP NUMBER is not numeric";$error = 1;}}
  $class_f = InputChecker($_POST["class_i"]);
@@ -712,7 +712,7 @@ echo $emerg_postcode_err; echo "</td></tr>";
 ?>
 <?php if (true)
 {
-echo "<tr><td class='desc'>GNZ NUMBER</td><td></td>";
+echo "<tr><td class='desc'>SSA NUMBER</td><td></td>";
 echo "<td>";
 echo "<input ";
 if (strlen($gnz_number_err) > 0) echo "class='err' ";echo "type='text' ";echo "name='gnz_number_i' ";echo "size='10' ";echo "Value='";echo $gnz_number_f;echo "' ";echo ">";echo "</td>";echo "<td>";

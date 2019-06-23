@@ -246,7 +246,6 @@ var pollcnt=0;
 // addrowdata
 DailySheet.init(<?php echo $launchTypeTow;?>,
                 <?php echo $launchTypeSelf;?>,
-                <?php echo $launchTypeWinch;?>,
                 Number(strTodayYear),
                 Number(strTodayMonth) - 1,
                 Number(strTodayDay));
@@ -1225,9 +1224,11 @@ function AddNewLine()
    var iRow = (nextRow-1);
    var strtp = document.getElementById("d" + iRow).value;
    var vector = document.getElementById(`vector-${iRow}`).value;
-   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"",vector,lastTowPilot,"","","0","0","0","","","","0");
+   DailySheet.addrowdata(nextRow,'l' + '<?=$launchTypeTow?>',"",vector,"","","","0","0","0","","","","0");
    nextRow++;
 }
+
+
 
 </script>
 </head>
@@ -1248,7 +1249,7 @@ function AddNewLine()
 <th>GLIDER</th>
 <th>VECTOR</th>
 <th>TOW PILOT<br/>WINCH DRIVER</th>
-<th>PIC</th>
+<th>PILOT<br/>P1</th>
 <th>P2</th>
 <th>START</th>
 <?php if ($towChargeType==2) echo "<th>TOW LAND</th>";?>

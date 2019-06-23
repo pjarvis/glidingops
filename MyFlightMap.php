@@ -226,7 +226,7 @@ google.maps.event.addDomListener(window, 'load', Start);
 <body>
 <div id='head'>
 <table class='t1'>
-<tr><td class='tdhead1'><p class='headp1'>wellington</p></td></tr>
+<tr><td class='tdhead1'><p class='headp1'>FaultLine Flyers</p></td></tr>
 <tr><td class='tdhead1'><p class='headp2'>gliding club operations</p></td></tr>
 </table>
 </div>
