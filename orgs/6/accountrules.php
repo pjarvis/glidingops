@@ -40,7 +40,7 @@ function CalcTowCharge($org,$launchtype,$towtype,$towplane,$duration,$height,$me
       if ($memberclass ==  $juniorclass)
        $q="SELECT cost from towcharges where org = ".$org." and type = 0 and plane = ".$towplane." and height = ".$height." and club_glider = " .$clubglider. " and member_class = " .$juniorclass. " order by effective_from DESC";  
       else
-       $q="SELECT cost from towcharges where org = ".$org." and type = 0 and plane = ".$towplane." and height = ".$height." and club_glider = " .$clubglider. " and member_class IS NOT NULL order by effective_from DESC"; 
+       $q="SELECT cost from towcharges where org = ".$org." and type = 0 and plane = ".$towplane." and height = ".$height." and club_glider = " .$clubglider. " and member_class IS NULL order by effective_from DESC"; 
       
       $r = mysqli_query($con,$q);
       if (mysqli_num_rows($r) > 0)
@@ -72,7 +72,10 @@ function CalcTowCharge2($org,$launchtype,$towplane,$duration,$height,$strmemberc
       if (strcasecmp($strmemberclass, "Junior") == 0) 
        $q="SELECT cost from towcharges LEFT JOIN membership_class a ON a.id = towcharges.member_class where towcharges.org = ".$org." and type = 0 and plane = ".$towplane." and height = ".$height." and club_glider = " .$clubglider. " and a.class = 'Junior' order by effective_from DESC";  
       else
-       $q="SELECT cost from towcharges where org = ".$org." and type = 0 and plane = ".$towplane." and height = ".$height." and club_glider = " .$clubglider. " and member_class IS NOT NULL order by effective_from DESC"; 
+ if (strcasecmp($strmemberclass, "Member") == 0)
+       $q="SELECT cost from towcharges LEFT JOIN membership_class a ON a.id = towcharges.member_class where towcharges.org = ".$org." and type = 0 and plane = ".$towplane." and height = ".$height." and club_glider = " .$clubglider. " and a.class = 'Member' order by effective_from DESC";
+      else
+       $q="SELECT cost from towcharges where org = ".$org." and type = 0 and plane = ".$towplane." and height = ".$height." and club_glider = " .$clubglider. " and member_class IS NULL order by effective_from DESC"; 
       
       $r = mysqli_query($con,$q);
       if (mysqli_num_rows($r) > 0)
