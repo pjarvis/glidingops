@@ -141,9 +141,9 @@ if (($_SESSION['security'] & 4))
 
 if ($_SESSION['security'] >= 1)
 {
- echo "<td><h2 class='u'>DAILY OPS</h2>";
+ echo "<td><h2 class='u'>DAILY OPS (DOR)</h2>";
  if ($_SESSION['security'] >= 4)
-    echo "<p class='u'><a href='DailySheet?org=" .$org."'>New Daily Timesheet</a></p>";
+    echo "<p class='u'><a href='DailySheet?org=" .$org."'>New/Edit Daily Timesheet</a></p>";
  echo "<p class='u'><a href='DailyLogSheet.php?org=" .$org."'>View Daily Timesheet</a></p>";
 
  echo "</td>";
