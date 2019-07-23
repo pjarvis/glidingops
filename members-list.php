@@ -3,7 +3,7 @@
 $org=6;
 if(isset($_SESSION['org'])) $org=$_SESSION['org'];
 if(isset($_SESSION['security'])){
- if (!($_SESSION['security'] & 1)) {die("Secruity level too low for this page");}
+ if (!($_SESSION['security'] >= 1)) {die("Security level too low for this page");}
 }else{
  header('Location: Login.php');
  die("Please logon");
@@ -221,7 +221,7 @@ if ($colsort == 0)
       <th data-sort-id='26' <?=($colsort == 26) ? "class='colsel'" : ''?> style='cursor:pointer'>MOBILE PHONE</th>
       <th data-sort-id='28' <?=($colsort == 28) ? "class='colsel'" : ''?> style='cursor:pointer'>EMAIL</th>
       <th data-sort-id='30' <?=($colsort == 30) ? "class='colsel'" : ''?> style='cursor:pointer'>TEXT</th>
-      <th data-sort-id='31' <?=($colsort == 31) ? "class='colsel'" : ''?> style='cursor:pointer'>EMIAL</th>
+      <th data-sort-id='31' <?=($colsort == 31) ? "class='colsel'" : ''?> style='cursor:pointer'>EMAIL</th>
    </tr>
    </thead>
 <tbody>

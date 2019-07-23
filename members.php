@@ -4,7 +4,7 @@ include 'timehelpers.php';
 $org=6;
 if(isset($_SESSION['org'])) $org=$_SESSION['org'];
 if(isset($_SESSION['security'])){
- if (!($_SESSION['security'] & 6)){die("Secruity level too low for this page");}
+ if (!($_SESSION['security'] >= 6)){die("Security level too low for this page");}
 }else{
  header('Location: Login.php');
  die("Please logon");
@@ -836,7 +836,7 @@ echo $enable_text_err; echo "</td></tr>";
 ?>
 <?php if (true)
 {
-echo "<tr><td class='desc'>ENABLE EMALS</td><td></td>";
+echo "<tr><td class='desc'>ENABLE EMAILS</td><td></td>";
 echo "<td><input type='checkbox' name='enable_email_i[]' Value='1' ";if ($enable_email_f ==1) echo "checked";echo "></td>";echo "<td>";
 echo $enable_email_err; echo "</td></tr>";
 }

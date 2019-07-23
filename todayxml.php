@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET")
     echo "<resp><error>No organisation number specified</error></resp>";     
     exit();
  }
- $dateTimeZoneNZ = new DateTimeZone("Pacific/Auckland");
+ $dateTimeZoneNZ = new DateTimeZone("America/Chicago");
  $dateTimeNZ = new DateTime("now", $dateTimeZoneNZ);
  $dateStr = $dateTimeNZ->format('Ymd');
  $dateStr2 = $dateTimeNZ->format('Y-m-d');
@@ -61,7 +61,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
   //Get the last point
   $dtstart = new DateTime();
   $dtstart->setTimestamp($row[4]);
-  $strStart = $dtstart->format('Y-m-d H:i:s');
+  $strStart = $dtstart->format('Y-m-d H:m:s');
 
   echo "<points>";  
 
@@ -69,7 +69,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
   {
     $dtland = new DateTime();
     $dtland->setTimestamp($row[5]);
-    $strland = $dtland->format('Y-m-d H:i:s');
+    $strland = $dtland->format('Y-m-d H:m:s');
     $q2 = "SELECT tracks.point_time,lattitude,longitude,altitude from tracks where tracks.org = ".$org." and tracks.glider = '".$row[1]."' and tracks.point_time >= '" .$strStart. "'  and tracks.point_time <= '" .$strland. "' ORDER by tracks.point_time";  
   }
   else

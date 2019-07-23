@@ -90,6 +90,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
 ?>
 <div id='container'>
 <div id='entry'>
+<img src='flf-logo.jpg'>
 <p class='p1'>Members can register by entering their email address below:</p>
 <p class='p2'>Note, you need to use the email address that the club has in its members list.</p>
 <p class='p2'>An email will be sent to you with a temporary password. Remember to <br>check your SPAM folder in case your ISP puts the email there.</p>

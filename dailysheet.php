@@ -223,7 +223,7 @@ var pollcnt=0;
 // addrowdata
 DailySheet.init(<?php echo $launchTypeTow;?>,
                 <?php echo $launchTypeSelf;?>,
-                <?php echo $launchTypeWinch;?>,
+		<?php echo $launchTypeWinch;?>,
                 Number(strTodayYear),
                 Number(strTodayMonth) - 1,
                 Number(strTodayDay));

@@ -120,7 +120,7 @@ echo "</td>";
 $col = ($col + 1) % $totcol;if ($col == 0) echo "</tr><tr>";
 
 echo "<td><h2 class='u'><a href='ViewBookings'>BOOKINGS</a></h2>";
-if (($_SESSION['security'] & 2)) echo "<p class='u'><a href='bookings.php'>New</a></p>";
+if (($_SESSION['security'] >= 2)) echo "<p class='u'><a href='bookings.php'>New</a></p>";
 echo "</td>";
 $col = ($col + 1) % $totcol;if ($col == 0) echo "</tr><tr>";
 
