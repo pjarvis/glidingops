@@ -173,7 +173,7 @@ while ($row = mysqli_fetch_array($r) )
 
   echo "<tr class='";if (($rownum % 2) == 0)echo "even";else echo "odd";  echo "'>";
   $datestr=$row[0];
-  echo "<td>";echo substr($datestr,6,2) . "/" . substr($datestr,4,2) . "/" . substr($datestr,0,4);echo "</td>";
+  echo "<td>";echo substr($datestr,4,2) . "/" . substr($datestr,6,2) . "/" . substr($datestr,0,4);echo "</td>";
   echo "<td class='right'>";echo $row[1];echo "</td>";
   echo "<td class='right'>";echo getGliderModel($con,$org,$row[1]); echo "</td>"; 
 
@@ -323,7 +323,7 @@ if ($istowy)
     $rownum = $rownum + 1;
     echo "<tr class='";if (($rownum % 2) == 0)echo "even";else echo "odd";  echo "'>";
     $datestr=$row[0];
-    echo "<td>";echo substr($datestr,6,2) . "/" . substr($datestr,4,2) . "/" . substr($datestr,0,4);echo "</td>";
+    echo "<td>";echo substr($datestr,4,2) . "/" . substr($datestr,6,2) . "/" . substr($datestr,0,4);echo "</td>";
     echo "<td class='right'>" . $row[1] . "</td>";
     echo "<td class='right'>" . $row[2] . "</td>";  
     echo "<td class='right'>" . $row[3] . "</td>";
@@ -429,7 +429,7 @@ while ($row = mysqli_fetch_array($r) )
      $iScheme = 1;
   
   echo "<tr class='";if (($rownum % 2) == 0)echo "even";else echo "odd";  echo "'>";
-  echo "<td>";echo substr($datestr,6,2) . "/" . substr($datestr,4,2) . "/" . substr($datestr,0,4);echo "</td>";
+  echo "<td>";echo substr($datestr,4,2) . "/" . substr($datestr,6,2) . "/" . substr($datestr,0,4);echo "</td>";
   echo "<td class='right'>";echo $row[1];echo "</td>";
   
   $duration = intval($row[2] / 1000);
