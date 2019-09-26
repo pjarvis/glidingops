@@ -234,7 +234,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
   	    $flightDate->setDate(substr($datestrflight,0,4),substr($datestrflight,4,2),substr($datestrflight,6,2));
 
         echo "<tr>";
-        echo "<td>";echo substr($datestrflight,6,2) . "/" . substr($datestrflight,4,2) . "/" . substr($datestrflight,0,4);echo "</td>";
+        echo "<td>";echo substr($datestrflight,4,2) . "/" . substr($datestrflight,6,2) . "/" . substr($datestrflight,0,4);echo "</td>";
 	    echo "<td>".$row[1]."</td>";
 	    echo "<td>".$row[2]."</td>";
 	    echo "<td>".$row[3]."</td>";
@@ -279,7 +279,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
                 echo "TYPE";
 		    else
                 echo "HEIGHT";
-            echo "</th><th>PIC</th><th>P2</th><th>TYPE</th><th>TOW</th><th>GLIDER</th><th>".strtoupper($strNameOtherCharges)."</th><th>TOTAL</th><th>NOTES</th></tr>";
+            echo "</th><th>P1</th><th>P2</th><th>TYPE</th><th>TOW</th><th>GLIDER</th><th>".strtoupper($strNameOtherCharges)."</th><th>TOTAL</th><th>NOTES</th></tr>";
         }
 		$datestrflight=$row[0];
   		$flightDate = new DateTime();
@@ -287,7 +287,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
 
 		echo "<tr>";
 		$strdate=$row[0];
-        echo "<td>";echo substr($datestrflight,6,2) . "/" . substr($datestrflight,4,2) . "/" . substr($datestrflight,0,4);echo "</td>";
+        echo "<td>";echo substr($datestrflight,4,2) . "/" . substr($datestrflight,6,2) . "/" . substr($datestrflight,0,4);echo "</td>";
 		echo "<td>";echo $row[10];echo "</td>";
         echo "<td class='right'>";echo $row[1];echo "</td>";
         echo "<td class='right'>" . strDuration($row[2]). "</td>";
@@ -374,7 +374,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
   		$flightDate->setDate(substr($datestrflight,0,4),substr($datestrflight,4,2),substr($datestrflight,6,2));
 
 		echo "<tr>";
-        echo "<td>";echo substr($datestrflight,6,2) . "/" . substr($datestrflight,4,2) . "/" . substr($datestrflight,0,4);echo "</td>";
+        echo "<td>";echo substr($datestrflight,4,2) . "/" . substr($datestrflight,6,2) . "/" . substr($datestrflight,0,4);echo "</td>";
 		echo "<td>";echo $row[10];echo "</td>";
         echo "<td class='right'>";echo $row[1];echo "</td>";
         echo "<td class='right'>" . strDuration($row[2]). "</td>";
@@ -474,7 +474,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
             if ($newmember == 1)
             {
 		        echo "<tr><th class='thname' colspan=13>" . $row[2] . "<th></tr>";
-                echo "<tr><th>DATE</th><th>LOCATION</th><th>GLIDER</th><th>PIC</th><th>P2</th>";
+                echo "<tr><th>DATE</th><th>LOCATION</th><th>GLIDER</th><th>P1</th><th>P2</th>";
                 if ($towChargeType==2)
                     echo "<th>TOW TIME</th>";
                 echo "<th>DURATION</th><th>";
@@ -488,7 +488,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
 		     }
             echo "<tr>";
 		    $strdate=$row2[0];
-  		    echo "<td>";echo substr($strdate,6,2) . "/" . substr($strdate,4,2) . "/" . substr($strdate,0,4);echo "</td>";
+  		    echo "<td>";echo substr($strdate,4,2) . "/" . substr($strdate,6,2) . "/" . substr($strdate,0,4);echo "</td>";
 		    echo "<td>";echo $row2[19];echo "</td>";
             echo "<td class='right'>";echo $row2[1];echo "</td>";
 
@@ -537,7 +537,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
             if ($is5050>0)
                 $total5050flights = $total5050flights + 1;
             $SchemeCharge = $iScheme;
-  		    //If this person is on a scheme he/she must be PIC or P2
+  		    //If this person is on a scheme he/she must be P1 or P2
   		    if ($iScheme)
   		    {
      		    if ($row[0] == $row2[4] || $row[0] == $row2[5])

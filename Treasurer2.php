@@ -69,7 +69,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
 	$totalflights = $row[0];
         
 	echo "NO CHARGE FLIGHTS,,,,,,,,,\r\n";
-    echo "Bill To,Date,Location,Glider,PIC,P2,";
+    echo "Bill To,Date,Location,Glider,P1,P2,";
     if ($towChargeType==2)
         echo "Tow Time,";
     echo "Duration,";
@@ -87,7 +87,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
         $flightDate = new DateTime();
         $flightDate->setDate(substr($datestrflight,0,4),substr($datestrflight,4,2),substr($datestrflight,6,2));
         $strdate=$row[0];
-        echo substr($datestrflight,6,2) . "/" . substr($datestrflight,4,2) . "/" . substr($datestrflight,0,4);
+        echo substr($datestrflight,4,2) . "/" . substr($datestrflight,6,2) . "/" . substr($datestrflight,0,4);
         echo ",";
         echo removecomma($row[10]);
         echo ",";
@@ -137,7 +137,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
 
 	echo ",,,,,,,,,\r\n";
     echo "TRIAL FLIGHTS,,,,,,,,,\r\n";
-    echo "Bill To,Date,Location,Glider,PIC,P2,";
+    echo "Bill To,Date,Location,Glider,P1,P2,";
     if ($towChargeType==2)
         echo "Tow Time,";
 	echo "Duration,";
@@ -155,7 +155,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
         $datestrflight=$row[0];
   	    $flightDate = new DateTime();
         $flightDate->setDate(substr( $datestrflight,0,4),substr($datestrflight,4,2),substr($datestrflight,6,2));
-        echo substr( $datestrflight,6,2) . "/" . substr( $datestrflight,4,2) . "/" . substr( $datestrflight,0,4) . ",";
+        echo substr( $datestrflight,4,2) . "/" . substr( $datestrflight,6,2) . "/" . substr( $datestrflight,0,4) . ",";
 	    echo removecomma($row[10]) . ",";
 	    echo removecomma($row[1]) . ",";
 	    echo removecomma($row[5]) . "," ;
@@ -202,7 +202,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
 	echo ",,,,,,,,,\r\n";
 	echo "MEMBERS,,,,,,,,,,,,,,\r\n";
     echo ",,,,,,,,,Bill Member,,,,,,Ledger if no Scheme\r\n";
-    echo "Bill To,Date,Location,Glider,PIC,P2,";
+    echo "Bill To,Date,Location,Glider,P1,P2,";
     if ($towChargeType==2)
           echo "Tow Time,";
     echo "Duration,";
@@ -259,7 +259,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
 		    $havememberflight=1;
 		    echo removecomma($row[2]) , ",";
 
-            echo substr($datestrflight,6,2) . "/" . substr($datestrflight,4,2) . "/" . substr($datestrflight,0,4) . ",";
+            echo substr($datestrflight,4,2) . "/" . substr($datestrflight,6,2) . "/" . substr($datestrflight,0,4) . ",";
 		    echo removecomma($row2[19]) . ",";
             echo removecomma($row2[1]) . ",";
 		    echo removecomma($row2[15]) . ","; 
@@ -310,7 +310,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
   		
 
                 
-		    //If this person is on a scheme he/she must be PIC or P2
+		    //If this person is on a scheme he/she must be P1 or P2
   		    if ($iScheme>0)
   		    {
      		    if ($row[0] == $row2[4] || $row[0] == $row2[5])
