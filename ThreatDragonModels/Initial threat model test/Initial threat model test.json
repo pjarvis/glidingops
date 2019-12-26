@@ -5,7 +5,11 @@
     "description": "General thread model for the project"
   },
   "detail": {
-    "contributors": [],
+    "contributors": [
+      {
+        "name": "Peter Jarvis"
+      }
+    ],
     "diagrams": [
       {
         "title": "Test",
