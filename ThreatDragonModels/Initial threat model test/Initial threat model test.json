@@ -1,0 +1,12 @@
+{
+  "summary": {
+    "title": "Initial threat model test",
+    "owner": "Peter Jarvis",
+    "description": "General thread model for the project"
+  },
+  "detail": {
+    "contributors": [],
+    "diagrams": [],
+    "reviewer": "Peter Jarvis"
+  }
+}
