@@ -61,6 +61,15 @@ function textCounter(field, cnt, maxlimit)
     cntfield.innerHTML = maxlimit - field.value.length;
  }
 </script>
+<script>
+function selectUnselectAll(element, role_id){
+  var isChecked = element.checked;
+  var checkboxes = document.querySelectorAll("#role_" + role_id + " input[type=checkbox]")
+  for(var i = 0; i < checkboxes.length; i++){
+	  checkboxes[i].checked = isChecked;
+  }
+};
+</script>
 </head>
 <body id="body">
 <?php include __DIR__.'/helpers/dev_mode_banner.php' ?>
@@ -266,28 +275,28 @@ if (strlen($consumerKey) > 0)
  echo "<table><tr><td class='td1'><input type='checkbox' name='member[]' value='twitter' checked>Twitter</td></tr></table>";
 }
 ?>
-<?php
-$roles = array();
-$rolename = array();
-$rolename[0] = 'A/B Cat Instructor';
-$roles[0] = getRoleId($con,$rolename[0]);
-$rolename[1] = 'C Cat Instructor';
-$roles[1] = getRoleId($con,$rolename[1]);
-$rolename[2] = 'Tow Pilot';
-$roles[2] = getRoleId($con,$rolename[2]);
+    <?php
+$q_retrieve_roles_used_by_current_org = <<<SQL
+SELECT id, name
+FROM  roles
+WHERE id in(
+    SELECT DISTINCT role_id FROM gliding.role_member WHERE org = {$_SESSION['org']}
+)
+SQL;
+$roles = mysqli_fetch_all(mysqli_query($con, $q_retrieve_roles_used_by_current_org), MYSQLI_ASSOC);
 
 
-for ($roleidx=0;$roleidx<3;$roleidx++)
+for ($roleidx=0;$roleidx<count($roles);$roleidx++)
 {
- echo "<h2>";
- echo $rolename[$roleidx];
- echo "s";
- echo "</h2>";
- echo "<table>";
+ echo "<h2><b>";
+ echo "<input type='checkbox' onchange='selectUnselectAll(this, ".$roles[$roleidx]['id'] .")'/>";
+ echo $roles[$roleidx]['name'];
+ echo "s</b></h2>";
+ echo "<table id='role_".$roles[$roleidx]['id'] ."'>";
   $colm = 0;
 
 
-  $sql2= "SELECT a.id, a.displayname, a.surname , a.firstname from role_member LEFT JOIN members a ON a.id = role_member.member_id where role_member.org = ".$_SESSION['org']. " and role_id = " .$roles[$roleidx] . " order by a.surname,a.firstname";
+  $sql2= "SELECT a.id, a.displayname, a.surname , a.firstname from role_member LEFT JOIN members a ON a.id = role_member.member_id where role_member.org = ".$_SESSION['org']. " and role_id = " .$roles[$roleidx]['id'] . " order by a.surname,a.firstname";
 
 
   $r2 = mysqli_query($con,$sql2);
@@ -378,7 +387,7 @@ while ($row = mysqli_fetch_array($r) )
 echo "</table>";
 
 mysqli_close($con);
-?>
+    ?>
 <table>
 <tr><td><input type='submit' value='Send'></td>
 <?php echo "<td class = 'rederr'>" . $errtxt . "</td>"; ?>
