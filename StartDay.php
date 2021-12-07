@@ -1,7 +1,16 @@
 <?php
 include 'timehelpers.php';
 include 'helpers.php';
+<<<<<<< HEAD
 $org=6;
+=======
+include './helpers/session_helpers.php';
+session_start();
+require_security_level(4);
+
+
+$org=0;
+>>>>>>> 2e6164e93961b6012badc27198fbc37b33ff7981
 $strdtnow='';
 $con_params = require('./config/database.php'); $con_params = $con_params['gliding'];
 $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params['password'],$con_params['dbname']);
@@ -38,6 +47,7 @@ a:link{color: #0000c0;}
 a:visited {color: #0000C0;}
 a:hover {color: #0000FF;}
 .nodisp {display:none;}
+.big-button {height:40px;font-size:14px;}
 </style>
 <script>
 function CheckChange(id)
@@ -58,25 +68,28 @@ function CheckChange(id)
 </head>
 <?php
 $errtext='';
-$defval='';
+$defaultLocation='';
 if ($_SERVER["REQUEST_METHOD"] == "GET")
 {
-    $q = "SELECT default_location FROM organisations WHERE id = " . $org;
-    $r = mysqli_query($con,$q);
-    $row_cnt = $r->num_rows;
-    if ($row_cnt > 0)
+    if (isset($_GET['location']) )
     {
-        $row = mysqli_fetch_array($r);
-        $defval=$row[0];
+      $defaultLocation=$_GET['location'];
     }
-    else
-    {
-        echo "Invalid organistaion number<br>";
-        exit();
+    else{
+      $q = "SELECT default_location FROM organisations WHERE id = " . $org;
+      $r = mysqli_query($con,$q);
+      $row_cnt = $r->num_rows;
+      if ($row_cnt > 0)
+      {
+          $row = mysqli_fetch_array($r);
+          $defaultLocation=$row[0];
+      }
+      else
+      {
+          echo "Invalid organistaion number<br>";
+          exit();
+      }
     }
-
-
-
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
@@ -108,13 +121,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 <?php $inc = "./orgs/" . $org . "/heading1.txt"; include $inc; ?>
 <div id='container'>
 <div id='entry'>
-<p>Start Days Timesheet</p>
+<p>Start Days Timesheet: <?php echo $dateTime->format('d-M-Y') ?></p>
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 <table>
-<tr><td>Enter Location:</td><td><input class ='bigger' type='text' value = '<?php echo $defval; ?>' name='location' size='25' title='Enter the location for this timesheet' autofocus></td><td></td></tr>
+<tr><td>Enter Location:</td><td><input class ='bigger' type='text' value = '<?php echo $defaultLocation; ?>' name='location' size='25' title='Enter the location for this timesheet' autofocus></td><td></td></tr>
 <tr><td class ='bigger'></td><td></td></tr>
 <tr><td>Start or edit for a different date:</td><td><input type='checkbox' name='specdate' onchange='CheckChange(this);'><input id='dt1' class='nodisp' type='date' name='date' value = <?php echo $strdtnow;?> disabled></td></tr>
-<tr><td></td><td class='right'><input type="submit" name"Submit" value="Create"></td><td></td></tr>
+<tr><td></td><td class='right'><input type="submit" class="big-button" value="Go To Daily Sheet"></td><td></td></tr>
 <tr><td><?php echo $errtext;?></td><td></td></tr>
 </table>
 <input type='hidden' name='org' value='<?php echo $org;?>'>
