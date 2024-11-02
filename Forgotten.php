@@ -60,10 +60,7 @@ $con=mysqli_connect($con_params['hostname'],$con_params['username'],$con_params[
     header('Location: Login.php');
   }
   else
-  {
-   $errtext='The email address you entered is not registered to this site.<br>Either correct and resubmit or register ';
-   $errtext .= "<a href='Register.php'>here</a>";
-  }
+   $errtext = "Sorry, that email address is not recorded as a member";
  }
 }
 ?>
